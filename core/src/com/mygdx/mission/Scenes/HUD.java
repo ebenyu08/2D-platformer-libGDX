@@ -16,62 +16,72 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- *
  * @author User
  */
 public class HUD implements Disposable {
 
-    public Stage stage;
-    private FitViewport viewport;
-    private Integer worldTimer;
-    private float timeCount;
-    private Integer score;
+  public Stage stage;
 
-    Label countdownLabel;
-    Label scoreLabel;
-    Label timeLabel;
-    Label levelLabel;
-    Label worldLabel;
-    Label playerLabel;
+  Label countdownLabel;
 
-    public HUD(SpriteBatch sb) {
-        worldTimer = 300;
-        timeCount = 0;
-        score = 0;
-        viewport = new FitViewport(Mission.V_WIDTH, Mission.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+  Label scoreLabel;
 
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true); // table size = stage size
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        scoreLabel = new Label(String.format("%02d", score), new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        levelLabel = new Label("Map: 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        playerLabel = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+  Label timeLabel;
 
-        table.add(playerLabel).expandX().padTop(160);//10
-        table.add(worldLabel).expandX().padTop(160);//10
-        table.add(timeLabel).expandX().padTop(160);//10
-        table.row();
-        table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
-        stage.addActor(table);
-        
+  Label levelLabel;
+
+  Label worldLabel;
+
+  Label playerLabel;
+
+  private FitViewport viewport;
+
+  private Integer worldTimer;
+
+  private float timeCount;
+
+  private Integer score;
+
+  public HUD(SpriteBatch sb) {
+    worldTimer = 300;
+    timeCount = 0;
+    score = 0;
+    viewport = new FitViewport(Mission.V_WIDTH, Mission.V_HEIGHT, new OrthographicCamera());
+    stage = new Stage(viewport, sb);
+
+    Table table = new Table();
+    table.top();
+    table.setFillParent(true); // table size = stage size
+    countdownLabel = new Label(String.format("%03d", worldTimer),
+        new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+    scoreLabel = new Label(String.format("%02d", score),
+        new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+    timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+    levelLabel = new Label("Map: 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+    playerLabel = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+
+    table.add(playerLabel).expandX().padTop(160);//10
+    table.add(worldLabel).expandX().padTop(160);//10
+    table.add(timeLabel).expandX().padTop(160);//10
+    table.row();
+    table.add(scoreLabel).expandX();
+    table.add(levelLabel).expandX();
+    table.add(countdownLabel).expandX();
+    stage.addActor(table);
+
+  }
+
+  public void update(float dt) {
+    timeCount += dt;
+    if (timeCount >= 1) {
+      worldTimer--;
+      countdownLabel.setText(String.format("%03d", worldTimer));
+      timeCount = 0;
     }
+  }
 
-    public void update(float dt) {
-        timeCount += dt;
-        if (timeCount >= 1) {
-            worldTimer--;
-            countdownLabel.setText(String.format("%03d", worldTimer));
-            timeCount = 0;
-        }
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-    }
+  @Override
+  public void dispose() {
+    stage.dispose();
+  }
 }

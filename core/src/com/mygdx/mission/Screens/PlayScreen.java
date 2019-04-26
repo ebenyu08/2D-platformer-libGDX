@@ -8,6 +8,7 @@ package com.mygdx.mission.Screens;
 import Sprites.Player;
 import Tools.WorldContactListener;
 import Tools.WorldCreator;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -37,149 +38,160 @@ import com.mygdx.mission.Scenes.HUD;
 import com.sun.prism.image.ViewPort;
 
 /**
- *
  * @author User
  */
 public class PlayScreen implements Screen {
 
-    private Mission game;
-    private TextureAtlas atlas;
-    private TextureAtlas computerHP;
-    private OrthographicCamera gameCamera;
-    private FitViewport gamePort;
-    private HUD hud;
-    //Tiled map variables
-    private TmxMapLoader mapLoader;
-    public TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    //box 2d variables
-    private World world;
-    private Box2DDebugRenderer b2dr;
-    private Player player;
-    public int jumpCount = 0;
+  private Mission game;
 
-    public PlayScreen(Mission game) {
-        atlas = new TextureAtlas("Character.pack");
-        computerHP = new TextureAtlas("pc.pack");
-        this.game = game;
-        gameCamera = new OrthographicCamera();
-        gamePort = new FitViewport(Mission.V_WIDTH / Mission.PPM, Mission.V_HEIGHT / Mission.PPM, gameCamera);
-        hud = new HUD(game.batch);
+  private TextureAtlas atlas;
 
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("map1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PPM);
-        gameCamera.position.set(gamePort.getScreenWidth() / Mission.PPM, gamePort.getScreenHeight() / Mission.PPM, 0);
-        //gravity vector, 
-        world = new World(new Vector2(0, -10), true);
-        b2dr = new Box2DDebugRenderer();
+  private TextureAtlas computerHP;
 
-        new WorldCreator(this);
+  private OrthographicCamera gameCamera;
 
-        //create player
-        player = new Player(this);
+  private FitViewport gamePort;
 
-        world.setContactListener(new WorldContactListener());
+  private HUD hud;
 
-    }
+  //Tiled map variables
+  private TiledMap map;
 
-    public TextureAtlas getAtlas() {
-        return atlas;
-    }
-    public TextureAtlas getPCAtlas() {
-        return computerHP;
-    }
+  private TmxMapLoader mapLoader;
 
-    @Override
-    public void show() {
+  private OrthogonalTiledMapRenderer renderer;
 
-    }
+  //box 2d variables
+  public int jumpCount = 0;
 
-    public void handleInput(float dt) {
-        
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
-            player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-            
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 2)) {
-            player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -2)) {
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            
-        }
-    }
+  private World world;
 
-    public void update(float dt) {
-        handleInput(dt);
+  private Box2DDebugRenderer b2dr;
 
-        world.step(1 / 60f, 6, 2);
+  private Player player;
 
-        player.update(dt);
-        hud.update(dt);
-        //camera follows player
-        gameCamera.position.x = player.b2body.getPosition().x;
-        gameCamera.position.y = player.b2body.getPosition().y;
-        gameCamera.update();
-        renderer.setView(gameCamera);
-    }
+  public PlayScreen(Mission game) {
+    atlas = new TextureAtlas("core/assets/Character.pack");
+    computerHP = new TextureAtlas("core/assets/pc.pack");
+    this.game = game;
+    gameCamera = new OrthographicCamera();
+    gamePort = new FitViewport(Mission.V_WIDTH / Mission.PPM, Mission.V_HEIGHT / Mission.PPM, gameCamera);
+    hud = new HUD(game.batch);
 
-    @Override
-    public void render(float delta) {
-        update(delta);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    mapLoader = new TmxMapLoader();
+    map = mapLoader.load("core/assets/map1.tmx");
+    renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PPM);
+    gameCamera.position.set(gamePort.getScreenWidth() / Mission.PPM, gamePort.getScreenHeight() / Mission.PPM, 0);
+    //gravity vector,
+    world = new World(new Vector2(0, -10), true);
+    b2dr = new Box2DDebugRenderer();
 
-        renderer.render();
+    new WorldCreator(this);
 
-        b2dr.render(world, gameCamera.combined);
+    //create player
+    player = new Player(this);
 
-        game.batch.setProjectionMatrix(gameCamera.combined);
-        game.batch.begin();
-        player.draw(game.batch);
-        game.batch.end();
+    world.setContactListener(new WorldContactListener());
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+  }
+
+  @Override
+  public void show() {
+
+  }
+
+  public void handleInput(float dt) {
+
+    if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
+      player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
 
     }
-
-    @Override
-    public void resize(int width, int height) {
-        gamePort.update(width, height);
-    }
-    
-    public TiledMap getMap(){
-        return map;
-    }
-    
-    public World getWorld(){
-        return world;
-    }
-    
-    @Override
-    public void pause() {
+    if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 2)) {
+      player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
 
     }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
+    if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -2)) {
+      player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
 
     }
+  }
 
-    @Override
-    public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
+  public void update(float dt) {
+    handleInput(dt);
 
-    }
+    world.step(1 / 60f, 6, 2);
 
+    player.update(dt);
+    hud.update(dt);
+    //camera follows player
+    gameCamera.position.x = player.b2body.getPosition().x;
+    gameCamera.position.y = player.b2body.getPosition().y;
+    gameCamera.update();
+    renderer.setView(gameCamera);
+  }
+
+  @Override
+  public void render(float delta) {
+    update(delta);
+    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    renderer.render();
+
+    b2dr.render(world, gameCamera.combined);
+
+    game.batch.setProjectionMatrix(gameCamera.combined);
+    game.batch.begin();
+    player.draw(game.batch);
+    game.batch.end();
+
+    game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    hud.stage.draw();
+
+  }
+
+  @Override
+  public void resize(int width, int height) {
+    gamePort.update(width, height);
+  }
+
+  @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
+  public void hide() {
+
+  }
+
+  @Override
+  public void dispose() {
+    map.dispose();
+    renderer.dispose();
+    world.dispose();
+    b2dr.dispose();
+
+  }
+
+  public TiledMap getMap() {
+    return map;
+  }
+
+  public World getWorld() {
+    return world;
+  }
+
+  public TextureAtlas getAtlas() {
+    return atlas;
+  }
+
+  public TextureAtlas getPCAtlas() {
+    return computerHP;
+  }
 }
