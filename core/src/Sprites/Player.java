@@ -124,20 +124,20 @@ public class Player extends Sprite {
 
   public void definePlayer(boolean right) {
     BodyDef bdef = new BodyDef();
-    bdef.position.set(70 / Mission.PPM, 70 / Mission.PPM);
+    bdef.position.set(150 / Mission.PPM, 200 / Mission.PPM);
     bdef.type = BodyDef.BodyType.DynamicBody;
     b2body = world.createBody(bdef);
     FixtureDef fdef = new FixtureDef();
     CircleShape shape = new CircleShape();
 
-    shape.setRadius(7 / Mission.PPM);
+    shape.setRadius(8 / Mission.PPM);
     fdef.filter.categoryBits = Mission.PLAYER_BIT;
     fdef.filter.maskBits = Mission.DEFAULT_BIT;// Mission.COMPUTER_BIT;
     fdef.shape = shape;
     b2body.createFixture(fdef);
 
     CircleShape head = new CircleShape();
-    head.setRadius(15 / Mission.PPM);
+    head.setRadius(8 / Mission.PPM);
     fdef.filter.categoryBits = Mission.PLAYER_BIT;
     fdef.filter.maskBits = Mission.DEFAULT_BIT | Mission.COMPUTER_BIT;
     fdef.shape = head;
