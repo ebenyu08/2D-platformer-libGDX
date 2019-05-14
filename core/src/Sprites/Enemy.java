@@ -1,35 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.mission.Screens.PlayScreen;
 
-/**
- * @author User
- */
-
 public abstract class Enemy extends Sprite {
 
-  World world;
+    public World world;
+    public Vector2 velocity;
+    public Vector2 velocityNegative;
+    public Body b2body;
+    protected Fixture fixture;
+    private final PlayScreen screen;
 
-  Body b2body;
+    public Enemy(PlayScreen screen, float x, float y) {
+        this.world = screen.getWorld();
+        this.screen = screen;
+        setPosition(x, y);
+        defineEnemy();
+        velocity = new Vector2(0.5f, 0);
+    }
 
-  private PlayScreen screen;
+    protected abstract void defineEnemy();
 
-  public Enemy(PlayScreen screen, float x, float y) {
-    this.world = screen.getWorld();
-    this.screen = screen;
-  }
+    public abstract void update(float dt);
 
-  protected abstract void defineEnemy();
+    public void reverseVelocity(boolean x, boolean y) {
+        if (x) {
+            velocity.x = -velocity.x;
+        }
+        if (y) {
+            velocity.y = -velocity.y;
+        }
+    }
 
-  public PlayScreen getScreen() {
-    return screen;
-  }
+    public PlayScreen getScreen() {
+        return screen;
+    }
+
+    public abstract void onCollision();
+
+    public abstract void offCollision();
 }

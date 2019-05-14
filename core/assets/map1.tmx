@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="28" height="18" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#c8230032" nextlayerid="36" nextobjectid="33">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="28" height="18" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#c8230032" nextlayerid="37" nextobjectid="64">
  <tileset firstgid="1" source="tile/BackgroundTile_v3.tsx"/>
  <tileset firstgid="257" source="tile/industrial.v2.tsx"/>
  <tileset firstgid="1281" source="tile/monitor-desk.tsx"/>
@@ -45,9 +45,9 @@
 1610613104,0,0,0,0,0,0,0,0,391,391,391,391,391,391,391,391,0,0,391,391,0,505,505,0,0,0,2684354928,
 1610613104,0,0,0,0,0,0,0,0,0,391,391,391,391,391,391,391,391,391,391,391,0,0,473,0,0,0,2684354928,
 1610613104,0,0,0,0,0,0,0,0,0,391,0,0,0,391,0,0,0,391,391,391,0,0,0,0,0,0,2684354928,
-1610613104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,391,391,391,391,391,391,0,0,0,2684354928,
+1610613104,0,0,0,0,0,0,0,0,0,1281,0,0,0,0,0,0,0,391,1281,391,391,391,391,0,1281,0,2684354928,
 1610613104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2684354928,
-3221225847,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,3221225840,2684354935
+7,3221225840,7,3221225840,7,7,7,3221225840,7,3221225840,7,3221225840,7,7,3221225840,7,3221225840,7,3221225840,7,7,3221225840,7,3221225840,7,3221225840,7,2684354935
 </data>
  </layer>
  <objectgroup id="2" name="ground">
@@ -55,6 +55,8 @@
   <object id="27" x="2" y="282.5" width="446" height="5"/>
   <object id="28" x="443" y="0.5" width="4" height="287"/>
   <object id="29" x="-1" y="-1.5" width="447" height="7"/>
+  <object id="48" x="0" y="256" width="448" height="16"/>
+  <object id="51" x="174" y="95" width="82" height="7"/>
  </objectgroup>
  <objectgroup id="3" name="walls">
   <object id="5" x="245.063" y="128.188">
@@ -69,9 +71,15 @@
   <object id="13" x="144" y="64" width="32" height="10"/>
   <object id="14" x="273.273" y="125.273" width="14.3636" height="2.72727"/>
   <object id="30" x="95.75" y="64" width="32.5" height="128.5"/>
-  <object id="31" x="176.25" y="96" width="79.5" height="6"/>
  </objectgroup>
  <objectgroup id="4" name="computer">
-  <object id="32" x="241.75" y="80.5" width="13" height="15.5"/>
+  <object id="52" x="240" y="80" width="16" height="16"/>
+  <object id="54" x="400" y="240" width="16" height="16"/>
+  <object id="61" x="304" y="240" width="16" height="16"/>
+  <object id="62" x="160" y="240" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="36" name="robots">
+  <object id="60" x="304" y="240" width="16" height="16"/>
+  <object id="63" x="160" y="240" width="16" height="16"/>
  </objectgroup>
 </map>

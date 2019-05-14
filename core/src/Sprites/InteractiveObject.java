@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Sprites;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,70 +11,47 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.mission.Mission;
+import com.mygdx.mission.Screens.PlayScreen;
 
 /**
+ *
  * @author User
  */
 public abstract class InteractiveObject {
 
-  Fixture fixture;
+    public boolean collided = false;
+    protected World world;
+    protected TiledMap map;
+    protected TiledMapTile tile;
+    protected Rectangle bounds;
+    protected Body body;
+    protected Fixture fixture;
+    protected PlayScreen screen;
 
-  private World world;
+    public InteractiveObject(PlayScreen screen, Rectangle bounds) {
+        this.screen = screen;
+        this.world = screen.getWorld();
+        this.map = screen.getMap();
+        this.bounds = bounds;
+        BodyDef bdef = new BodyDef();
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Mission.PixelsPerMeter, (bounds.getY() + bounds.getHeight() / 2) / Mission.PixelsPerMeter);
+        body = world.createBody(bdef);
+        shape.setAsBox(bounds.getWidth() / 2 / Mission.PixelsPerMeter, bounds.getHeight() / 2 / Mission.PixelsPerMeter);
+        fdef.shape = shape;
+        fixture = body.createFixture(fdef);
+    }
 
-  private TiledMap map;
+    public abstract void onCollision();
 
-  private TiledMapTile tile;
+    public abstract void offCollision();
 
-  private Rectangle bounds;
+    public void setCategoryFilter(short filterBit) {
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        fixture.setFilterData(filter);
+    }
 
-  private Body body;
-
-  public InteractiveObject(World world, TiledMap map, Rectangle bounds) {
-    this.world = world;
-    this.map = map;
-    this.bounds = bounds;
-
-    BodyDef bdef = new BodyDef();
-    FixtureDef fdef = new FixtureDef();
-    PolygonShape shape = new PolygonShape();
-
-    bdef.type = BodyDef.BodyType.StaticBody;
-    bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Mission.PPM,
-        (bounds.getY() + bounds.getHeight() / 2) / Mission.PPM);
-    body = world.createBody(bdef);
-    shape.setAsBox(bounds.getWidth() / 2 / Mission.PPM, bounds.getHeight() / 2 / Mission.PPM);
-
-    fdef.shape = shape;
-    fixture = body.createFixture(fdef);
-  }
-
-  public abstract void onCollision();
-
-  public abstract void offCollision();
-
-  public void setCategoryFilter(short filterBit) {
-    Filter filter = new Filter();
-    filter.categoryBits = filterBit;
-    fixture.setFilterData(filter);
-  }
-
-  public World getWorld() {
-    return world;
-  }
-
-  public TiledMap getMap() {
-    return map;
-  }
-
-  public TiledMapTile getTile() {
-    return tile;
-  }
-
-  public Rectangle getBounds() {
-    return bounds;
-  }
-
-  public Body getBody() {
-    return body;
-  }
 }
