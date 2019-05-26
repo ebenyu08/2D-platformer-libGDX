@@ -44,14 +44,19 @@ public final class HealthBar extends Sprite {
     }
 
     public TextureRegion getFrame(float dt) {
-        if (screen.getPlayer().hasComputer == true) {
-            if (screen.getPlayer().comp.hp <= 100 && screen.getPlayer().comp.hp > 66) {
+        if (screen.getPlayer().hasComputer) {
+            Computer comp = screen.getPlayer().comp;
+            if (comp.hp <= 100 && comp.hp > 66) {
                 return fullhp;
-            } else if (screen.getPlayer().comp.hp <= 66 && screen.getPlayer().comp.hp > 33) {
+            } else if (comp.hp <= 66 && comp.hp > 33) {
                 return twothirdhp;
-            } else if (screen.getPlayer().comp.hp <= 33 && screen.getPlayer().comp.hp > 0) {
+            } else if (comp.hp <= 33 && comp.hp > 0) {
                 return thirdhp;
             } else {
+                if (comp.hasPuzzlePiece()) {
+                    screen.getPlayer().foundPiece();
+                }
+                comp.changeColor();
                 return zerohp;
             }
         }

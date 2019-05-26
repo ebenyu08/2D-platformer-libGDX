@@ -34,6 +34,7 @@ public final class Player extends Sprite {
     private final Animation playerJump;
     private float stateTimer;
     private boolean runningRight;
+    private int numberOfPieces;
 
     public Player(PlayScreen screen) {
         super(screen.getAtlas().findRegion("character1"));
@@ -42,6 +43,7 @@ public final class Player extends Sprite {
         previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
+        numberOfPieces = 0;
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for (int i = 1; i < 3; i++) {
@@ -136,4 +138,11 @@ public final class Player extends Sprite {
         }
     }
 
+    public void foundPiece() {
+        numberOfPieces++;
+    }
+
+    public boolean foundAllPieces() {
+        return numberOfPieces == 4;
+    }
 }

@@ -30,7 +30,8 @@ import com.mygdx.mission.Scenes.HUD;
 
 public class PlayScreen implements Screen {
 
-    private final TiledMap map;
+    private static int mapNumber = 1;
+
     private final Mission game;
     private final TextureAtlas atlas;
     private final TextureAtlas computerHP;
@@ -48,7 +49,9 @@ public class PlayScreen implements Screen {
     private final Player player;
     private final HealthBar healthbar;
 
-    public PlayScreen(Mission game) {
+    private TiledMap map;
+
+    public PlayScreen(Mission game, String mapName) {
         this.game = game;
         //packs containing sprites for animations
         atlas = new TextureAtlas("character.pack");
@@ -58,7 +61,8 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mission.V_WIDTH / Mission.PixelsPerMeter, Mission.V_HEIGHT / Mission.PixelsPerMeter, gameCamera);
         hud = new HUD(game.batch);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("map1.tmx");
+        map = mapLoader.load(mapName);
+        mapNumber = 1;
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PixelsPerMeter);
         gameCamera.position.set(gamePort.getScreenWidth() / Mission.PixelsPerMeter, gamePort.getScreenHeight() / Mission.PixelsPerMeter, 0);
         //gravity vector, 
@@ -91,6 +95,8 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.collided) {
             if (player.comp.hp > 0) {
                 player.comp.hp--;
+            } else if (player.foundAllPieces()) {
+                loadNextLevel();
             }
         }
     }
@@ -157,6 +163,12 @@ public class PlayScreen implements Screen {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+    }
+
+    private void loadNextLevel() {
+        String nextMapName = "map" + (++mapNumber) + ".tmx";
+        game.setScreen(new PlayScreen(game, nextMapName));
+
     }
 
     public TextureAtlas getAtlas() {
