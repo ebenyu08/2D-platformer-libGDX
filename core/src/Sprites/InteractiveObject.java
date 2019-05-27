@@ -20,13 +20,13 @@ import com.mygdx.mission.Screens.PlayScreen;
 public abstract class InteractiveObject {
 
     public boolean collided = false;
-    protected World world;
-    protected TiledMap map;
     protected TiledMapTile tile;
-    protected Rectangle bounds;
-    protected Body body;
-    protected Fixture fixture;
-    protected PlayScreen screen;
+    TiledMap map;
+    Rectangle bounds;
+    Fixture fixture;
+    PlayScreen screen;
+    private Body body;
+    private World world;
 
     public InteractiveObject(PlayScreen screen, Rectangle bounds) {
         this.screen = screen;

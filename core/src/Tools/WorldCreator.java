@@ -1,5 +1,9 @@
 package Tools;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import Sprites.Computer;
 import Sprites.Robot;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -46,11 +50,22 @@ public class WorldCreator {
             body.createFixture(fdef);
         }
         //create computers 4 = computers
-
+        List<Computer> pcs = new ArrayList<>();
         for (RectangleMapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Computer(screen, rect, 100);
+            pcs.add(new Computer(screen, rect, 100));
         }
+
+        int puzzlePieces = 4;
+        Random r = new Random();
+        while (puzzlePieces != 0) {
+            int index = r.nextInt(pcs.size() - 1);
+            if (!pcs.get(index).hasPuzzlePiece()) {
+              pcs.get(index).setHasPuzzlePiece(true);
+              puzzlePieces--;
+            }
+        }
+
         //create robots
         robots = new Array<Robot>();
 
