@@ -5,11 +5,6 @@
  */
 package com.mygdx.mission.Screens;
 
-import Sprites.HealthBar;
-import Sprites.Player;
-import Sprites.Robot;
-import Tools.WorldContactListener;
-import Tools.WorldCreator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -19,17 +14,23 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.SerializationException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.mission.Mission;
 import com.mygdx.mission.Scenes.HUD;
 
+import Sprites.HealthBar;
+import Sprites.Player;
+import Sprites.Robot;
+import Tools.WorldContactListener;
+import Tools.WorldCreator;
+
 public class PlayScreen implements Screen {
 
+    private static final int FINAL_MAP = 7;
     private static int mapNumber = 1;
 
     private final Mission game;
@@ -110,6 +111,9 @@ public class PlayScreen implements Screen {
             robot.update(dt);
         }
         hud.update(dt);
+        if (hud.getTime() == 0) {
+            game.setScreen(new GameOverScreen(game));
+        }
         gameCamera.position.x = player.b2body.getPosition().x;
         gameCamera.position.y = player.b2body.getPosition().y;
         gameCamera.update();
@@ -166,9 +170,18 @@ public class PlayScreen implements Screen {
     }
 
     private void loadNextLevel() {
-        String nextMapName = "map" + (++mapNumber) + ".tmx";
-        game.setScreen(new PlayScreen(game, nextMapName));
-
+        if (mapNumber != FINAL_MAP) {
+            try {
+                String nextMapName = "map" + (++mapNumber) + ".tmx";
+                game.setScreen(new PlayScreen(game, nextMapName));
+            } catch (Exception e) {
+                if (e instanceof SerializationException) {
+                    game.setScreen(new MenuScreen(game));
+                }
+            }
+        } else {
+            game.setScreen(new EndingScreen(game));
+        }
     }
 
     public TextureAtlas getAtlas() {

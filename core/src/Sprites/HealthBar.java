@@ -55,6 +55,8 @@ public final class HealthBar extends Sprite {
             } else {
                 if (comp.hasPuzzlePiece()) {
                     screen.getPlayer().foundPiece();
+                    comp.changeColor();
+                    comp.setHasPuzzlePiece(false);
                 }
                 comp.changeColor();
                 return zerohp;

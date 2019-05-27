@@ -84,4 +84,8 @@ public class HUD implements Disposable {
   public void dispose() {
     stage.dispose();
   }
+
+  public int getTime() {
+    return worldTimer;
+  }
 }

@@ -50,7 +50,7 @@ public class WorldCreator {
             body.createFixture(fdef);
         }
         //create computers 4 = computers
-        List<Computer> pcs = new ArrayList<>();
+        List<Computer> pcs = new ArrayList<Computer>();
         for (RectangleMapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             pcs.add(new Computer(screen, rect, 100));
@@ -59,9 +59,8 @@ public class WorldCreator {
         int puzzlePieces = 4;
         Random r = new Random();
         while (puzzlePieces != 0) {
-            int index = r.nextInt(pcs.size() - 1);
-            if (!pcs.get(index).hasPuzzlePiece()) {
-              pcs.get(index).setHasPuzzlePiece(true);
+            if (!pcs.get(puzzlePieces - 1).hasPuzzlePiece()) {
+              pcs.get(puzzlePieces - 1).setHasPuzzlePiece(true);
               puzzlePieces--;
             }
         }
