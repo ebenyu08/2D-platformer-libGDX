@@ -112,7 +112,7 @@ public class PlayScreen implements Screen {
         }
         hud.update(dt);
         if (hud.getTime() == 0) {
-            game.setScreen(new GameOverScreen(game));
+            new GameOverScreen(game);
         }
         gameCamera.position.x = player.b2body.getPosition().x;
         gameCamera.position.y = player.b2body.getPosition().y;

@@ -43,7 +43,7 @@ public class HUD implements Disposable {
   private Integer score;
 
   public HUD(SpriteBatch sb) {
-    worldTimer = 300;
+    worldTimer = 5;
     timeCount = 0;
     score = 0;
     viewport = new FitViewport(Mission.V_WIDTH, Mission.V_HEIGHT, new OrthographicCamera());
