@@ -74,7 +74,7 @@ public final class Player extends Sprite {
 
     public void definePlayer(boolean right) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(16 / Mission.PixelsPerMeter, 32 / Mission.PixelsPerMeter);
+        bdef.position.set(60 / Mission.PixelsPerMeter, 60 / Mission.PixelsPerMeter);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();

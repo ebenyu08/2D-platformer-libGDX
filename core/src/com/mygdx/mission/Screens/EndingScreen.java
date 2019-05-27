@@ -6,7 +6,7 @@ import com.mygdx.mission.Mission;
 public class EndingScreen implements Screen {
 
     public EndingScreen(Mission game) {
-        new MenuScreen(game);
+        game.setScreen(new MenuScreen(game));
     }
 
     @Override
