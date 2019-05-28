@@ -1,5 +1,9 @@
 package Sprites;
 
+import static com.mygdx.mission.Mission.PIXELS_PER_METER;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.mission.Mission;
@@ -13,9 +17,21 @@ public class Computer extends InteractiveObject {
 
     private boolean hasPuzzlePiece;
 
+    private Sprite sprite;
+
+    private TextureRegion texture;
+
     public Computer(PlayScreen screen, Rectangle bounds, int hp) {
         super(screen, bounds);
         this.hp = hp;
+//        sprite = new Sprite();
+//        sprite.setPosition(bounds.x, bounds.y);
+//        sprite.setBounds(sprite.getX(), sprite.getY(), 16 / PIXELS_PER_METER, 16 / PIXELS_PER_METER);
+//        texture = new TextureRegion(screen.getComputers().findRegion("1"), 16, 0, 16, 16);
+//        sprite.setRegion(texture.getRegionX(),
+//              texture.getRegionY(),
+//              texture.getRegionWidth(),
+//              texture.getRegionHeight());
         tileSet = map.getTileSets().getTileSet("done");
         fixture.setUserData(this);
         setCategoryFilter(Mission.COMPUTER_BIT);
@@ -48,5 +64,9 @@ public class Computer extends InteractiveObject {
 
     public void setHasPuzzlePiece(boolean hasPuzzlePiece) {
         this.hasPuzzlePiece = hasPuzzlePiece;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 }

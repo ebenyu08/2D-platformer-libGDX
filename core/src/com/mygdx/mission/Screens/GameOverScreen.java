@@ -1,6 +1,7 @@
 package com.mygdx.mission.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,17 +16,15 @@ import com.mygdx.mission.Mission;
 
 public class GameOverScreen implements Screen {
 
-  private SpriteBatch batch;
+    private SpriteBatch batch;
 
-  private OrthographicCamera camera;
+    private OrthographicCamera camera;
 
-  private FitViewport viewport;
+    private FitViewport viewport;
 
-  private Stage stage;
+    private Stage stage;
 
-  private Mission game;
-
-  private Texture texture;
+    private Mission game;
 
     public GameOverScreen(Mission game) {
         this.game = game;
@@ -38,6 +37,8 @@ public class GameOverScreen implements Screen {
         camera.update();
 
         stage = new Stage(viewport, batch);
+
+
     }
 
     @Override
@@ -58,6 +59,9 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) game.setScreen(new MenuScreen(game));
+
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

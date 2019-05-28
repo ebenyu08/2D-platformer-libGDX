@@ -1,12 +1,9 @@
 package Sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.mission.Mission;
@@ -29,7 +26,7 @@ public class Robot extends Enemy {
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
         //size of texture
-        setBounds(getX(), getY(), 16 / Mission.PixelsPerMeter, 16 / Mission.PixelsPerMeter);
+        setBounds(getX(), getY(), 16 / Mission.PIXELS_PER_METER, 16 / Mission.PIXELS_PER_METER);
     }
 
     @Override
@@ -59,7 +56,7 @@ public class Robot extends Enemy {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(7 / Mission.PixelsPerMeter);
+        shape.setRadius(7 / Mission.PIXELS_PER_METER);
         fdef.filter.categoryBits = Mission.ROBOT_BIT;
         fdef.filter.maskBits = Mission.PLAYER_BIT | Mission.DEFAULT_BIT;
 

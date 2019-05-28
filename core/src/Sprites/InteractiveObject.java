@@ -37,9 +37,9 @@ public abstract class InteractiveObject {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Mission.PixelsPerMeter, (bounds.getY() + bounds.getHeight() / 2) / Mission.PixelsPerMeter);
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Mission.PIXELS_PER_METER, (bounds.getY() + bounds.getHeight() / 2) / Mission.PIXELS_PER_METER);
         body = world.createBody(bdef);
-        shape.setAsBox(bounds.getWidth() / 2 / Mission.PixelsPerMeter, bounds.getHeight() / 2 / Mission.PixelsPerMeter);
+        shape.setAsBox(bounds.getWidth() / 2 / Mission.PIXELS_PER_METER, bounds.getHeight() / 2 / Mission.PIXELS_PER_METER);
         fdef.shape = shape;
         fixture = body.createFixture(fdef);
     }

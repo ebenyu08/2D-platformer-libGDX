@@ -28,7 +28,7 @@ public final class HealthBar extends Sprite {
         twothirdhp = new TextureRegion(getTexture(), 32, 0, 16, 16);
         fullhp = new TextureRegion(getTexture(), 48, 0, 16, 16);
         defineHealthBar(true);
-        setBounds(0, 0, 16 / Mission.PixelsPerMeter, 16 / Mission.PixelsPerMeter);
+        setBounds(0, 0, 16 / Mission.PIXELS_PER_METER, 16 / Mission.PIXELS_PER_METER);
         setRegion(fullhp);
     }
 

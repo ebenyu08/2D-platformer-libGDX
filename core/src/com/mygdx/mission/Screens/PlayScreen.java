@@ -35,6 +35,7 @@ public class PlayScreen implements Screen {
 
     private final Mission game;
     private final TextureAtlas atlas;
+    private final TextureAtlas computers;
     private final TextureAtlas computerHP;
     private final TextureAtlas robots;
     private final OrthographicCamera gameCamera;
@@ -58,14 +59,15 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas("character.pack");
         computerHP = new TextureAtlas("load.pack");
         robots = new TextureAtlas("robot.pack");
+        computers = new TextureAtlas("pc.pack");
         gameCamera = new OrthographicCamera();
-        gamePort = new FitViewport(Mission.V_WIDTH / Mission.PixelsPerMeter, Mission.V_HEIGHT / Mission.PixelsPerMeter, gameCamera);
+        gamePort = new FitViewport(Mission.V_WIDTH / Mission.PIXELS_PER_METER, Mission.V_HEIGHT / Mission.PIXELS_PER_METER, gameCamera);
         hud = new HUD(game.batch);
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(mapName);
         mapNumber = 1;
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PixelsPerMeter);
-        gameCamera.position.set(gamePort.getScreenWidth() / Mission.PixelsPerMeter, gamePort.getScreenHeight() / Mission.PixelsPerMeter, 0);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PIXELS_PER_METER);
+        gameCamera.position.set(gamePort.getScreenWidth() / Mission.PIXELS_PER_METER, gamePort.getScreenHeight() / Mission.PIXELS_PER_METER, 0);
         //gravity vector, 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
@@ -87,11 +89,11 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
             player.b2body.applyLinearImpulse(new Vector2(0, 2.75f), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 2)) {
-            player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 1.5)) {
+            player.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -2)) {
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -1.5)) {
+            player.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.collided) {
             if (player.comp.hp > 0) {
@@ -112,7 +114,7 @@ public class PlayScreen implements Screen {
         }
         hud.update(dt);
         if (hud.getTime() == 0) {
-            new GameOverScreen(game);
+            game.setScreen(new GameOverScreen(game));
         }
         gameCamera.position.x = player.b2body.getPosition().x;
         gameCamera.position.y = player.b2body.getPosition().y;
@@ -136,6 +138,9 @@ public class PlayScreen implements Screen {
         for (Robot robot : creator.getRobots()) {
             robot.draw(game.batch);
         }
+
+//        creator.getComputers().forEach(computer -> computer.getSprite().draw(game.batch));
+
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -190,6 +195,10 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getPCAtlas() {
         return computerHP;
+    }
+
+    public TextureAtlas getComputers() {
+        return computers;
     }
 
     public TextureAtlas getRobotsAtlas() {

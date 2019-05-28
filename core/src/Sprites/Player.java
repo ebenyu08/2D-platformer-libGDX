@@ -17,7 +17,8 @@ public final class Player extends Sprite {
 
     public enum State {
         FALLING, JUMPING, STANDING, RUNNING
-    };
+    }
+
     public boolean hasComputer = false;
     public boolean collided = false;
     public boolean collidedToRobot = false;
@@ -58,12 +59,12 @@ public final class Player extends Sprite {
         playerJump = new Animation(0.1f, frames);
         playerStand = new TextureRegion(getTexture(), 0, 0, 16, 16);
         definePlayer(true);
-        setBounds(0, 0, 16 / Mission.PixelsPerMeter, 16 / Mission.PixelsPerMeter);
+        setBounds(0, 0, 16 / Mission.PIXELS_PER_METER, 16 / Mission.PIXELS_PER_METER);
         setRegion(playerStand);
     }
 
     public void update(float dt) {
-        if (collidedToRobot == true) {
+        if (collidedToRobot) {
             b2body.setTransform(new Vector2(0.2f, 0.5f), b2body.getAngle());
             collidedToRobot = false;
         } else {
@@ -74,18 +75,18 @@ public final class Player extends Sprite {
 
     public void definePlayer(boolean right) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(60 / Mission.PixelsPerMeter, 60 / Mission.PixelsPerMeter);
+        bdef.position.set(60 / Mission.PIXELS_PER_METER, 60 / Mission.PIXELS_PER_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         shape = new CircleShape();
-        shape.setRadius(7 / Mission.PixelsPerMeter);
+        shape.setRadius(7 / Mission.PIXELS_PER_METER);
         fdef.filter.categoryBits = Mission.PLAYER_BIT;
         fdef.filter.maskBits = Mission.DEFAULT_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef);
         head = new CircleShape();
-        head.setRadius(8 / Mission.PixelsPerMeter);
+        head.setRadius(8 / Mission.PIXELS_PER_METER);
         fdef.filter.categoryBits = Mission.PLAYER_BIT;
         fdef.filter.maskBits = Mission.DEFAULT_BIT | Mission.COMPUTER_BIT | Mission.ROBOT_BIT;
         fdef.shape = head;
