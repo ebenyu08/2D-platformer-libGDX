@@ -23,20 +23,23 @@ import com.mygdx.mission.Mission;
 
 public class MenuScreen implements Screen {
 
-    protected Skin skin;
-    protected Stage stage;
-
     private final Game game;
-    private final SpriteBatch batch;
+
     private final Viewport viewport;
+
     private final OrthographicCamera camera;
+
     private final TextureAtlas atlas;
+
+    private Skin skin;
+
+    private Stage stage;
 
     public MenuScreen(Game game) {
         this.game = game;
         atlas = new TextureAtlas("skin/menuskin.atlas");
         skin = new Skin(Gdx.files.internal("skin/menuskin.json"), atlas);
-        batch = new SpriteBatch();
+        SpriteBatch batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(Mission.V_WIDTH, Mission.V_HEIGHT, camera);
         viewport.apply();
