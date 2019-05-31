@@ -61,13 +61,14 @@ public class PlayScreen implements Screen {
         robots = new TextureAtlas("robot.pack");
         computers = new TextureAtlas("pc.pack");
         gameCamera = new OrthographicCamera();
-        gamePort = new FitViewport(Mission.V_WIDTH / Mission.PIXELS_PER_METER, Mission.V_HEIGHT / Mission.PIXELS_PER_METER, gameCamera);
-        hud = new HUD(game.batch);
+        gamePort = new FitViewport(Mission.V_WIDTH / Mission.PIXELS_PER_METER,
+            Mission.V_HEIGHT / Mission.PIXELS_PER_METER, gameCamera);
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(mapName);
         mapNumber = 1;
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PIXELS_PER_METER);
-        gameCamera.position.set(gamePort.getScreenWidth() / Mission.PIXELS_PER_METER, gamePort.getScreenHeight() / Mission.PIXELS_PER_METER, 0);
+        gameCamera.position.set(gamePort.getScreenWidth() / Mission.PIXELS_PER_METER,
+            gamePort.getScreenHeight() / Mission.PIXELS_PER_METER, 0);
         //gravity vector, 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
@@ -75,6 +76,7 @@ public class PlayScreen implements Screen {
         creator = new WorldCreator(this);
         //create player
         player = new Player(this);
+        hud = new HUD(game.batch, player);
         healthbar = new HealthBar(this);
         world.setContactListener(new WorldContactListener());
     }

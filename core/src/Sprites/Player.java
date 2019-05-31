@@ -146,4 +146,8 @@ public final class Player extends Sprite {
     public boolean foundAllPieces() {
         return numberOfPieces == 4;
     }
+
+    public int getNumberOfPieces() {
+      return numberOfPieces;
+    }
 }
