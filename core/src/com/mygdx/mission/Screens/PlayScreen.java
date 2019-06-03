@@ -187,7 +187,7 @@ public class PlayScreen implements Screen {
                 }
             }
         } else {
-            game.setScreen(new EndingScreen());
+            game.setScreen(new EndingScreen(game));
         }
     }
 
