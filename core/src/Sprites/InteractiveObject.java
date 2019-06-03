@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,19 +15,25 @@ import com.mygdx.mission.Mission;
 import com.mygdx.mission.Screens.PlayScreen;
 
 /**
- *
  * @author User
  */
-public abstract class InteractiveObject {
+public abstract class InteractiveObject extends Sprite {
 
     public boolean collided = false;
+
+    protected World world;
+
+    protected TiledMap map;
+
     protected TiledMapTile tile;
-    TiledMap map;
-    Rectangle bounds;
-    Fixture fixture;
-    PlayScreen screen;
-    private Body body;
-    private World world;
+
+    protected Rectangle bounds;
+
+    protected Body body;
+
+    protected Fixture fixture;
+
+    protected PlayScreen screen;
 
     public InteractiveObject(PlayScreen screen, Rectangle bounds) {
         this.screen = screen;

@@ -23,17 +23,13 @@ public class HUD implements Disposable {
 
     public Stage stage;
 
-    Label countdownLabel;
+    private Label countdownLabel;
 
-    Label scoreLabel;
+    private Label scoreLabel;
 
-    Label timeLabel;
+    private Label worldLabel;
 
-    Label levelLabel;
-
-    Label worldLabel;
-
-    Label playerLabel;
+    private Label playerLabel;
 
     private FitViewport viewport;
 
@@ -60,10 +56,8 @@ public class HUD implements Disposable {
                 new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
         scoreLabel = new Label("Pieces " + String.format("%01d", score),
                 new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        timeLabel =
-                new Label("Time", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
-        levelLabel =
-                new Label("Map: 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+        Label timeLabel = new Label("Time", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
+        Label levelLabel = new Label("Map: 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
         playerLabel =
                 new Label("Player 1", new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.WHITE));
 

@@ -5,6 +5,7 @@
  */
 package com.mygdx.mission.Screens;
 
+import Sprites.Computer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -114,6 +115,9 @@ public class PlayScreen implements Screen {
         for (Robot robot : creator.getRobots()) {
             robot.update(dt);
         }
+        for (Computer computer : creator.getComputers()) {
+            computer.update(dt);
+        }
         hud.update(dt);
         if (hud.getTime() == 0) {
             game.setScreen(new GameOverScreen(game));
@@ -133,6 +137,9 @@ public class PlayScreen implements Screen {
         //b2dr.render(world, gameCamera.combined);
         game.batch.setProjectionMatrix(gameCamera.combined);
         game.batch.begin();
+        for (Computer computer : creator.getComputers() ){
+            computer.draw(game.batch);
+        }
         player.draw(game.batch);
         if (player.collided) {
             healthbar.draw(game.batch);
@@ -140,8 +147,6 @@ public class PlayScreen implements Screen {
         for (Robot robot : creator.getRobots()) {
             robot.draw(game.batch);
         }
-
-//        creator.getComputers().forEach(computer -> computer.getSprite().draw(game.batch));
 
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -221,5 +226,9 @@ public class PlayScreen implements Screen {
 
     public HealthBar getHealthBar() {
         return healthbar;
+    }
+
+    public TextureAtlas getComputersAtlas() {
+        return computers;
     }
 }

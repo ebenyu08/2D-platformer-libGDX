@@ -3,6 +3,7 @@ package com.mygdx.mission;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.mission.Screens.EndingScreen;
+import com.mygdx.mission.Screens.GameOverScreen;
 import com.mygdx.mission.Screens.MenuScreen;
 
 public class Mission extends Game {
