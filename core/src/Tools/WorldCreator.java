@@ -74,7 +74,7 @@ public class WorldCreator {
         for (RectangleMapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             robots.add(new Robot(screen, rect.getX() / Mission.PIXELS_PER_METER,
-                rect.getY() / Mission.PIXELS_PER_METER));
+                    rect.getY() / Mission.PIXELS_PER_METER));
         }
     }
 

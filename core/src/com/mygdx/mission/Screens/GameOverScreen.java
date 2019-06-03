@@ -1,4 +1,4 @@
-  package com.mygdx.mission.Screens;
+package com.mygdx.mission.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -53,9 +53,9 @@ public class GameOverScreen implements Screen {
         Table mainTable = new Table();
         Texture texture = new Texture("gameover.jpg");
         mainTable.setBackground(
-            new TextureRegionDrawable(
-                new TextureRegion(
-                    texture)));
+                new TextureRegionDrawable(
+                        new TextureRegion(
+                                texture)));
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
