@@ -32,7 +32,7 @@ import Tools.WorldCreator;
 public class PlayScreen implements Screen {
 
     private static final int FINAL_MAP = 7;
-    private static int mapNumber = 1;
+    private static int mapNumber = 6;
 
     private final Mission game;
     private final TextureAtlas atlas;
@@ -65,8 +65,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(Mission.V_WIDTH / Mission.PIXELS_PER_METER,
                 Mission.V_HEIGHT / Mission.PIXELS_PER_METER, gameCamera);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load(mapName);
-        mapNumber = 1;
+        map = mapLoader.load("map" + (mapNumber) + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Mission.PIXELS_PER_METER);
         gameCamera.position.set(gamePort.getScreenWidth() / Mission.PIXELS_PER_METER,
                 gamePort.getScreenHeight() / Mission.PIXELS_PER_METER, 0);
@@ -92,10 +91,10 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y == 0) {
             player.b2body.applyLinearImpulse(new Vector2(0, 2.75f), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 1.5)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.b2body.getLinearVelocity().x <= 1.25)) {
             player.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -1.5)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.b2body.getLinearVelocity().x >= -1.25)) {
             player.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.collided) {
@@ -104,6 +103,9 @@ public class PlayScreen implements Screen {
             } else if (player.foundAllPieces()) {
                 loadNextLevel();
             }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+          game.setScreen(new MenuScreen(game));
         }
     }
 
